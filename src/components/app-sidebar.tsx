@@ -3,16 +3,13 @@
 import type * as React from "react"
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
   Settings2,
-  SquareTerminal,
-  PenLine,
+  ShoppingCart,
   BadgeDollarSign,
   Package,
   Hammer,
@@ -53,7 +50,7 @@ const data = {
   navMain: [
     {
       title: "Home",
-      url: "#",
+      url: "home",
       icon: Home,
       isActive: true,
       // items: [
@@ -72,31 +69,27 @@ const data = {
       // ],
     },
     {
-      title: "Cadastros",
-      url: "#",
-      icon: PenLine,
+      title: "Produtos",
+      url: "",
+      icon: ShoppingCart,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: "Gerenciar Produtos",
+          url: "records",
         },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+        // {
+        //   title: "Tutorials",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Changelog",
+        //   url: "#",
+        // },
       ],
     },
     {
       title: "Vendas",
-      url: "#",
+      url: "",
       icon: BadgeDollarSign,
       items: [
         {
@@ -115,7 +108,7 @@ const data = {
     },
     {
       title: "Estoque",
-      url: "#",
+      url: "",
       icon: Package,
       items: [
         {
@@ -138,7 +131,7 @@ const data = {
     },
     {
       title: "Serviços",
-      url: "#",
+      url: "",
       icon: Hammer,
       items: [
         {
@@ -161,7 +154,7 @@ const data = {
     },
     {
       title: "Documentação",
-      url: "#",
+      url: "",
       icon: FileText,
       items: [
         {
@@ -184,7 +177,7 @@ const data = {
     },
     {
       title: "Configurações",
-      url: "#",
+      url: "",
       icon: Settings2,
       items: [
         {
