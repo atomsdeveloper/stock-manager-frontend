@@ -75,12 +75,12 @@ const data = {
       items: [
         {
           title: "Gerenciar Produtos",
-          url: "records",
+          url: "records/products",
         },
-        // {
-        //   title: "Tutorials",
-        //   url: "#",
-        // },
+        {
+          title: "Relatório dos Produtos",
+          url: "reports/products",
+        },
         // {
         //   title: "Changelog",
         //   url: "#",
@@ -93,17 +93,17 @@ const data = {
       icon: BadgeDollarSign,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: "Gerenciar Vendas",
+          url: "records/sales",
         },
         {
-          title: "Explorer",
-          url: "#",
+          title: "Relatório de Vendas",
+          url: "reports/sales",
         },
-        {
-          title: "Quantum",
-          url: "#",
-        },
+        // {
+        //   title: "Quantum",
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -112,21 +112,25 @@ const data = {
       icon: Package,
       items: [
         {
-          title: "Introduction",
+          title: "Gerenciar Estoque",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Relatório do Estoque",
           url: "#",
         },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+        // {
+        //   title: "Get Started",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Tutorials",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Changelog",
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -135,21 +139,21 @@ const data = {
       icon: Hammer,
       items: [
         {
-          title: "Introduction",
+          title: "Buscar Venda",
           url: "#",
         },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+        // {
+        //   title: "Get Started",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Tutorials",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Changelog",
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -169,10 +173,10 @@ const data = {
           title: "Tutorials",
           url: "#",
         },
-        {
-          title: "Changelog",
-          url: "#",
-        },
+        // {
+        //   title: "Changelog",
+        //   url: "#",
+        // },
       ],
     },
     {
@@ -181,21 +185,21 @@ const data = {
       icon: Settings2,
       items: [
         {
-          title: "General",
+          title: "Geral",
           url: "#",
         },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
+        // {
+        //   title: "Team",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Billing",
+        //   url: "#",
+        // },
+        // {
+        //   title: "Limits",
+        //   url: "#",
+        // },
       ],
     },
   ],
