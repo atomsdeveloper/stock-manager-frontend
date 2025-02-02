@@ -35,11 +35,14 @@ export function NavUser({
   const navigate = useNavigate();
 
   const handlerSetAccount = async () => {
+    const token = localStorage.getItem('token');
+
     try {
       const response = await fetch('http://localhost:8080/user/account', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
         }
       })
 
@@ -47,7 +50,7 @@ export function NavUser({
         const data = await response.json();
         throw new Error(data.message);
       }
-         
+
       navigate('/user/account');
     } catch (error) {
       Swal.fire({
@@ -62,7 +65,7 @@ export function NavUser({
     localStorage.clear();
 
     const storage = localStorage.getItem('token')
-    if(!storage) {
+    if (!storage) {
       navigate('/')
     }
   }
@@ -129,7 +132,7 @@ export function NavUser({
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => handlerLogOut()}>
-              <LogOut/>
+              <LogOut />
               Log out
             </DropdownMenuItem>
           </DropdownMenuContent>
