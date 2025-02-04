@@ -1,5 +1,6 @@
 // Hooks
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 // Components
 import {
@@ -21,25 +22,38 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination"
-
+import ContentFilter from "./content-filter";
 
 // Libs
 import Swal from "sweetalert2";
 
 const RecordsProducts = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // URL Params
+  const filterCategory = searchParams.get('category') || null;
+  const filterPrice = searchParams.get('price') || null;
+
+  // Pagination
   const [products, setProducts] = useState([])
-  const [itemsPerPage] = useState(5)
+  const [itemsPerPage] = useState(7)
   const [page, setPage] = useState(1)
 
   const indexStart = (page - 1) * itemsPerPage
   const indexEnd = indexStart + itemsPerPage
   const productsPerPage = products.slice(indexStart, indexEnd)
 
-  const totalPages = products.length / itemsPerPage
+  let totalPages = products.length / itemsPerPage
+
+  if (totalPages < 1) {
+    totalPages = 1
+  }
 
   useEffect(() => {
+
     const fetchResponse = async () => {
       const token = localStorage.getItem('token');
+
 
       if (!token) {
         Swal.fire({
@@ -50,8 +64,13 @@ const RecordsProducts = () => {
         return;
       }
 
+      let url = `http://localhost:8080/records/products?`
+
+      if (filterCategory) url += `category=${filterCategory}&`
+      if (filterPrice) url += `price=${filterPrice}&`
+
       try {
-        const response = await fetch('http://localhost:8080/records/products', {
+        const response = await fetch(url, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -59,16 +78,16 @@ const RecordsProducts = () => {
           },
         })
 
-        // Verificando se a resposta foi bem-sucedida
         if (!response.ok) {
           throw new Error('Falha ao buscar os produtos');
         }
 
-        const data = await response.json(); // Extraindo os dados da resposta
+        const data = await response.json();
 
-        console.log('Produtos:', data); // Exibindo os dados no console
+        // Iterar sobre eles os produtos para pegar o id da categoria e inserir em categories lib
+        // Tenho somente 5 categorias
 
-        setProducts(data.products); // Atualizando o estado com os dados dos produtos
+        setProducts(data.products);
       } catch (error) {
         Swal.fire({
           icon: 'error',
@@ -79,16 +98,27 @@ const RecordsProducts = () => {
     }
 
     fetchResponse();
-  }, [])
+  }, [filterCategory, filterPrice])
+
+  const handleFilterChange = (name: string, typeFilter: string) => {
+    const params = new URLSearchParams(window.location.search); // Pega os filtros existentes
+    if (typeFilter) {
+      params.set(name, typeFilter); // Atualiza ou adiciona um filtro sem remover os outros
+    } else {
+      params.delete(name); // Remove o filtro se o valor for vazio
+    }
+    setSearchParams(params);
+  };
 
   return (
     <div className="w-full h-full gap-4 p-4 pt-0 bg-slate-200" >
-      <div className="h-32 bg-slate-500">
-        <h1>Filtros</h1>
-      </div>
+      <ContentFilter
+        filterPrice={filterPrice}
+        filterCategory={filterCategory}
+        handleFilterChange={handleFilterChange}
+      />
 
       <Table>
-        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
         <TableHeader>
           <TableRow>
             <TableHead>Invoice</TableHead>
@@ -105,7 +135,7 @@ const RecordsProducts = () => {
               <TableRow key={item?.id}>
                 <TableCell className="font-medium">{item?.name}</TableCell>
                 <TableCell className="text-center">{item?.discountPercentage}%</TableCell>
-                <TableCell>{item?.category_id}</TableCell>
+                <TableCell>{item?.category?.name}</TableCell>
                 <TableCell className="text-center">R${item?.price}</TableCell>
                 <TableCell className="text-center">{item?.stock_quantity}</TableCell>
                 <TableCell className="text-right flex justify-around gap-1">
@@ -128,7 +158,7 @@ const RecordsProducts = () => {
             />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink >{page} de {totalPages}</PaginationLink>
+            <PaginationLink >{page} de {Math.ceil(totalPages)}</PaginationLink>
           </PaginationItem>
           <PaginationItem>
             <PaginationEllipsis />
